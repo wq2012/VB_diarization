@@ -19,6 +19,10 @@
 #   L. Burget   16/07/13 01:00AM - original version
 #   Quan Wang   07/02/19 11:00AM - refactoring
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 import numpy as np
 import vbdiar
 

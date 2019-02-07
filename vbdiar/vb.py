@@ -21,6 +21,10 @@
 #                                - few more optimizations
 #   Quan Wang   07/02/19 11:00AM - refactoring
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 import numpy as np
 from scipy.sparse import coo_matrix
 import scipy.linalg as spl
@@ -122,7 +126,7 @@ def VB_diarization(X, m, iE, w, V, sp=None, q=None,
 
   #Kx = np.sum(NN * (np.log(w) - np.log(NN)), 1)
   NN = coo_matrix(NN) # represent zero-order stats using sparse matrix
-  print 'Sparsity: ', len(NN.row), float(len(NN.row))/np.prod(NN.shape)
+  print('Sparsity: ', len(NN.row), float(len(NN.row))/np.prod(NN.shape))
   LL = np.sum(G) # total log-likelihod as calculated using UBM
 
   mixture_sum = coo_matrix((np.ones(C*D), (np.repeat(range(C),D), range(C*D))))
@@ -204,13 +208,15 @@ def VB_diarization(X, m, iE, w, V, sp=None, q=None,
       Li[-1] += [DER(downsampler.T.dot(q), ref), DER(downsampler.T.dot(q), ref, xentropy=True)]
 
       if plot:
+        import matplotlib
+        matplotlib.use('agg')
         import matplotlib.pyplot
         if ii == 0: matplotlib.pyplot.clf()
         matplotlib.pyplot.subplot(maxIters, 1, ii+1)
         matplotlib.pyplot.plot(downsampler.T.dot(q), lw=2)
         matplotlib.pyplot.imshow(np.atleast_2d(ref), interpolation='none', aspect='auto',
                                  cmap=matplotlib.pyplot.cm.Pastel1, extent=(0, len(ref), -0.05, 1.05))
-      print ii, Li[-2]
+      print(ii, Li[-2])
 
 
     if ii > 0 and L - Li[-2][0] < epsilon:
@@ -341,10 +347,10 @@ def forward_backward(lls, tr, ip):
     lfw[0] = lls[0] + np.log(ip)
     lbw[-1] = 0.0
 
-    for ii in  xrange(1,len(lls)):
+    for ii in  range(1,len(lls)):
         lfw[ii] =  lls[ii] + logsumexp(lfw[ii-1] + ltr.T, axis=1)
 
-    for ii in reversed(xrange(len(lls)-1)):
+    for ii in reversed(range(len(lls)-1)):
         lbw[ii] = logsumexp(ltr + lls[ii+1] + lbw[ii+1], axis=1)
 
     tll = logsumexp(lfw[-1])
