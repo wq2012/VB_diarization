@@ -19,6 +19,7 @@
 #                                - minor bug fix in initializing q
 #                                - minor bug fix in ELBO calculation
 #                                - few more optimizations
+#   Quan Wang   07/02/19 11:00AM - refactoring
 
 import numpy as np
 from scipy.sparse import coo_matrix
