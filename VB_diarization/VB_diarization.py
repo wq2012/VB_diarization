@@ -141,7 +141,7 @@ def VB_diarization(X, m, iE, w, V, sp=None, q=None,
   if downsample is not None:
     # Downsample NN, VtiEF, G and q by summing the statistic over 'downsample' frames
     # This speeds-up diarization for the price of lowering its frame resolution
-    downsampler = coo_matrix((np.ones(nframes), (np.ceil(np.arange(nframes)/downsample), np.arange(nframes))))
+    downsampler = coo_matrix((np.ones(nframes), (np.ceil(np.arange(nframes)/downsample).astype(int), np.arange(nframes))))
     NN    = downsampler.dot(NN)
     VtiEF = downsampler.dot(VtiEF)
     G     = downsampler.dot(G)
