@@ -9,6 +9,9 @@ This is a **refactored** version of the VB diarization software available at
 
 I am **NOT** the original author of the library.
 
+To learn more about speaker diarization, check out
+[awesome-diarization](https://github.com/wq2012/awesome-diarization).
+
 ## Tutorial
 
 Install the package by:
