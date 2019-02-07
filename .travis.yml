@@ -1,0 +1,22 @@
+language: python
+
+python:
+  - 3.5
+
+cache: pip
+
+install:
+  - pip install -q -r requirements.txt
+
+script:
+  - python3 VB_diarization_demo.py
+
+after_success:
+  - codecov
+
+notifications:
+  email: false
+
+branches:
+  only:
+    - master
