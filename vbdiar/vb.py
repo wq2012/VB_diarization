@@ -27,10 +27,8 @@ from __future__ import print_function
 
 import numpy as np
 from scipy.sparse import coo_matrix
+from scipy.misc import logsumexp
 import scipy.linalg as spl
-# the dependency on this modul can be avoided by replacing
-# logsumexp_ne and exp_ne with logsumexp and np.exp
-import numexpr as ne
 
 
 def VB_diarization(X, m, iE, w, V, sp=None, q=None,
@@ -125,8 +123,8 @@ def VB_diarization(X, m, iE, w, V, sp=None, q=None,
     ll = (X**2).dot(-0.5*iE.T) + X.dot(iE.T*m.T)-0.5 * \
         ((iE * m**2 - np.log(iE)).sum(1) - 2*np.log(w) + D*np.log(2*np.pi))
     ll *= llScale
-    G = logsumexp_ne(ll, axis=1)
-    NN = exp_ne(ll - G[:, np.newaxis]) * statScale
+    G = logsumexp(ll, axis=1)
+    NN = np.exp(ll - G[:, np.newaxis]) * statScale
     NN[NN < sparsityThr] = 0.0
 
     # Kx = np.sum(NN * (np.log(w) - np.log(NN)), 1)
@@ -315,36 +313,6 @@ def DER(q, ref, expected=True, xentropy=False):
 ###############################################################################
 # Module private functions
 ###############################################################################
-def logsumexp(x, axis=0):
-    xmax = x.max(axis)
-    x = xmax + np.log(np.sum(np.exp(x - np.expand_dims(xmax, axis)), axis))
-    infs = np.isinf(xmax)
-    if np.ndim(x) > 0:
-        x[infs] = xmax[infs]
-    elif infs:
-        x = xmax
-    return x
-
-
-# The folowing two functions are only versions optimized for speed using
-# numexpr module and can be replaced by logsumexp and np.exp functions to avoid
-# the dependency on the module.
-def logsumexp_ne(x, axis=0):
-    xmax = np.array(x).max(axis=axis)
-    xmax_e = np.expand_dims(xmax, axis)
-    x = ne.evaluate("sum(exp(x - xmax_e), axis=%d)" % axis)
-    x = ne.evaluate("xmax + log(x)")
-    infs = np.isinf(xmax)
-    if np.ndim(x) > 0:
-        x[infs] = xmax[infs]
-    elif infs:
-        x = xmax
-    return x
-
-
-def exp_ne(x, out=None):
-    return ne.evaluate("exp(x)", out=None)
-
 
 # Convert vector with lower-triangular coefficients into symetric matrix
 def tril_to_sym(tril):
