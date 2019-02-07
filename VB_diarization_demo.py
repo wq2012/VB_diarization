@@ -35,7 +35,8 @@ V = np.loadtxt("data/iXtractor.txt", dtype=np.float32).reshape(-1, *m.shape)
 # load MFCC features
 X = np.loadtxt("data/features.txt")
 
-# load reference per-frame labels (0: silence; 1: both; 2: speaker; A 3: speaker B)
+# load reference per-frame labels
+# (0: silence; 1: both; 2: speaker; A 3: speaker B)
 ref = np.loadtxt("data/ref.txt", dtype=int)
 
 # keep only frames with one speaker (to make scoring simple)
@@ -48,11 +49,13 @@ q = None
 # q = vbdiar.frame_labels2posterior_mx(ref) # initialize from the reference
 
 # runing with one 25 frame (0.25s) resolution; about 2.5 faster
-q, sp, L = vbdiar.VB_diarization(X, m, iE, w, V, sp=None, q=None, maxSpeakers=2, maxIters=10, VtiEV=VtiEV,
-                                 downsample=25, alphaQInit=100.0, sparsityThr=0.001, epsilon=1e-6, minDur=1,
-                                 loopProb=0.9, statScale=0.3, llScale=1.0, ref=ref, plot=False)
+q, sp, L = vbdiar.VB_diarization(
+    X, m, iE, w, V, sp=None, q=None, maxSpeakers=2, maxIters=10, VtiEV=VtiEV,
+    downsample=25, alphaQInit=100.0, sparsityThr=0.001, epsilon=1e-6, minDur=1,
+    loopProb=0.9, statScale=0.3, llScale=1.0, ref=ref, plot=False)
 
 # runing with one frame resolution
-q, sp, L = vbdiar.VB_diarization(X, m, iE, w, V, sp=None, q=None, maxSpeakers=2, maxIters=10, VtiEV=VtiEV,
-                                 downsample=1, alphaQInit=100.0, sparsityThr=0.001, epsilon=1e-6, minDur=1,
-                                 loopProb=0.998, statScale=0.3, llScale=1.0, ref=ref, plot=True)
+q, sp, L = vbdiar.VB_diarization(
+    X, m, iE, w, V, sp=None, q=None, maxSpeakers=2, maxIters=10, VtiEV=VtiEV,
+    downsample=1, alphaQInit=100.0, sparsityThr=0.001, epsilon=1e-6, minDur=1,
+    loopProb=0.998, statScale=0.3, llScale=1.0, ref=ref, plot=True)
