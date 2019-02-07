@@ -1,5 +1,7 @@
 # VB Diarization with Eigenvoice and HMM Priors
 
+[![PyPI Version](https://img.shields.io/pypi/v/vbdiar.svg)](https://pypi.python.org/pypi/vbdiar) [![Python Versions](https://img.shields.io/pypi/pyversions/vbdiar.svg)](https://pypi.org/project/vbdiar)
+
 ## Overview
 
 This is a **refactored** version of the VB diarization software available at
