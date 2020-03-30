@@ -1,6 +1,6 @@
 # VB Diarization with Eigenvoice and HMM Priors
 
-[![Build Status](https://travis-ci.org/wq2012/VB_diarization.svg?branch=master)](https://travis-ci.org/wq2012/VB_diarization) [![PyPI Version](https://img.shields.io/pypi/v/vbdiar.svg)](https://pypi.python.org/pypi/vbdiar) [![Python Versions](https://img.shields.io/pypi/pyversions/vbdiar.svg)](https://pypi.org/project/vbdiar)
+[![Build Status](https://travis-ci.org/wq2012/VB_diarization.svg?branch=master)](https://travis-ci.org/wq2012/VB_diarization) [![PyPI Version](https://img.shields.io/pypi/v/vbdiar.svg)](https://pypi.python.org/pypi/vbdiar) [![Python Versions](https://img.shields.io/pypi/pyversions/vbdiar.svg)](https://pypi.org/project/vbdiar) [![Downloads](https://pepy.tech/badge/vbdiar)](https://pepy.tech/project/vbdiar)
 
 ## Overview
 
