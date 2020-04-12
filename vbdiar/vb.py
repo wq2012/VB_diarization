@@ -27,7 +27,7 @@ from __future__ import print_function
 
 import numpy as np
 from scipy.sparse import coo_matrix
-from scipy.misc import logsumexp
+from scipy.special import logsumexp
 import scipy.linalg as spl
 
 
